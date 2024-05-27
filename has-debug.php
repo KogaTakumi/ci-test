@@ -1,2 +1,3 @@
 <?php
-debug('hoge')
+debug('hoge');
+var_dump('hoge');
