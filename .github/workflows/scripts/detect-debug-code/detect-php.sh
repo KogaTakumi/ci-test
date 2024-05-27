@@ -2,6 +2,7 @@ files=$1
 debug_code_exists=false
 
 for file in ${files[@]}; do
+    echo "Checking $file"
     if [ ${file: -4} != ".php" ]; then
         continue
     fi
