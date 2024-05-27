@@ -1,3 +1,4 @@
+name: detect-debug-code
 on: pull_request
 jobs:
   check-bats-version:
