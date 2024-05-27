@@ -2,12 +2,12 @@ files=$1
 debug_code_exists=false
 
 for file in ${files[@]}; do
-    if [ ${file: -4} != ".php" ]; then
+    if [ ${file: -3} != ".js" ]; then
         continue
     fi
 
     echo "Checking $file"
-    debug_code=(`grep -E 'debug\(|var_dump\(|dump\(' ${file}`)
+    debug_code=(`grep -E 'console.log\(|' ${file}`)
     if [ -n "$debug_code" ]; then
         echo "$file: $debug_code"
         debug_code_exists=true
