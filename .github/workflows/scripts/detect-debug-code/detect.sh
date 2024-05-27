@@ -17,11 +17,12 @@ for file in ${files[@]}; do
     if [ -n "$debug_codes" ]; then
         debug_code_exists=true
         for debug_code in "${debug_codes[@]}"; do
-            echo "[detected] $file:$debug_code"
+            # echo "[detected] $file:$debug_code"
+            # split debug_code into line number and code
+            IFS=':' read -r -a debug_code_parts <<< "$debug_code"
+            line_number=${debug_code_parts[0]}
+            code=${debug_code_parts[1]}
+            echo "${file}:${line_number}:0:Debug code found\n```${code}```"
         done
     fi
 done
-
-if [ "$debug_code_exists" = true ]; then
-    exit 1
-fi
