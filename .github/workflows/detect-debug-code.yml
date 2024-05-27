@@ -24,4 +24,4 @@ jobs:
         shell: bash
         run: |
           files=(`git diff origin/${{ github.base_ref }} --name-only|tr '\n' ' ' `)
-          .github/workflows/scripts/detect-debug-code/detect.sh "${files[@]}" | reviewdog -efm="%f:%l:%c: %m" -name="detect-debug-code" -reporter=github-pr-check -level=error
+          .github/workflows/scripts/detect-debug-code/detect.sh "${files[@]}" | reviewdog -efm="%f:%l:%c: %m" -name="detect-debug-code" -reporter=github-pr-review -level=error
