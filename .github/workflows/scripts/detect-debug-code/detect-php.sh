@@ -1,4 +1,4 @@
-files=$1
+files=$@
 debug_code_exists=false
 
 for file in ${files[@]}; do
