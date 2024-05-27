@@ -18,4 +18,4 @@ jobs:
         shell: bash
         run: |
           files=(`git diff origin/${{ github.base_ref }} --name-only|tr '\n' ' ' `)
-          .github/workflows/detect-debug-code.sh "${files[@]}"
+          .github/workflows/detect-debug-code/detect-php.sh "${files[@]}"
