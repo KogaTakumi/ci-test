@@ -24,10 +24,10 @@ jobs:
           files=(`git diff origin/${{ github.base_ref }} --name-only|tr '\n' ' ' `)
           echo "Files changed: ${files[@]}"
           .github/workflows/scripts/detect-debug-code/detect-php.sh "${files[@]}"
-          - name: detect_debug_code_js
-          if: success() || failure()
-          shell: bash
-          run: |
+      - name: detect_debug_code_js
+        if: success() || failure()
+        shell: bash
+        run: |
           files=(`git diff origin/${{ github.base_ref }} --name-only|tr '\n' ' ' `)
           echo "Files changed: ${files[@]}"
           .github/workflows/scripts/detect-debug-code/detect-js.sh "${files[@]}"
