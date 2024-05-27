@@ -1,9 +1,5 @@
 name: detect-debug-code
-on:
-  pull_request:
-    paths:
-      - '**.php'
-      - '**.js'
+on: pull_request
 jobs:
   detect_debug_code:
     runs-on: ubuntu-latest
@@ -18,14 +14,8 @@ jobs:
         with:
           fetch-depth: 1
           ref: ${{ github.head_ref}}
-      - name: detect_debug_code_php
+      - name: detect_debug_code
         shell: bash
         run: |
           files=(`git diff origin/${{ github.base_ref }} --name-only|tr '\n' ' ' `)
-          .github/workflows/scripts/detect-debug-code/detect-php.sh "${files[@]}"
-      - name: detect_debug_code_js
-        if: success() || failure()
-        shell: bash
-        run: |
-          files=(`git diff origin/${{ github.base_ref }} --name-only|tr '\n' ' ' `)
-          .github/workflows/scripts/detect-debug-code/detect-js.sh "${files[@]}"
+          .github/workflows/scripts/detect-debug-code/detect.sh "${files[@]}"
