@@ -21,3 +21,7 @@ for file in ${files[@]}; do
         done
     fi
 done
+
+if [ "$debug_code_exists" = true ]; then
+    exit 1
+fi
