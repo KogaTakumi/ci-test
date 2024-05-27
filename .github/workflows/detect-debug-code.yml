@@ -1,7 +1,7 @@
 name: detect-debug-code
 on: pull_request
 jobs:
-  check-bats-version:
+  detect_debug_code:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,16 +18,4 @@ jobs:
         shell: bash
         run: |
           files=(`git diff origin/${{ github.base_ref }} --name-only|tr '\n' ' ' `)
-          debug_code_exists=false
-          for file in ${files[@]}; do
-            echo "Checking $file"
-            mapfile -t debug_code < <(grep -E 'debug\(|var_dump\(|dump\(' "${file}")
-            if [ -n "$debug_code" ]; then
-              echo "$file: $debug_code"
-              debug_code_exists=true
-            fi
-          done
-          if $debug_code_exists; then
-            echo "Debug code exists in the diff. Please remove it."
-            exit 1
-          fi
+          .github/workflows/detect-debug-code.sh "${files[@]}"
