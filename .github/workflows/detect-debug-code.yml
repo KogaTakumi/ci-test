@@ -1,0 +1,31 @@
+on: pull_request
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        name: checkout "${{ github.base_ref }}"
+        with:
+          fetch-depth: 1
+          ref: ${{ github.base_ref }}
+      - uses: actions/checkout@v4
+        name: checkout "${{ github.head_ref }}"
+        with:
+          fetch-depth: 1
+          ref: ${{ github.head_ref}}
+      - name: check_diff
+        shell: bash
+        run: |
+          files=(`git diff origin/${{ github.base_ref }} --name-only|tr '\n' ' ' `)
+          debug_code_exists=false
+          for file in ${files[@]}; do
+            debug_code=`grep -E 'debug\(|var_dump\(|dump\(' ${file}`
+            if debug_code; then
+              echo "${file}: ${debug_code}"
+              debug_code_exists=true
+            fi
+          done
+          if $debug_code_exists; then
+            echo "Debug code exists in the diff. Please remove it."
+            exit 1
+          fi
