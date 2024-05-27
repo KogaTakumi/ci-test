@@ -6,6 +6,7 @@ for file in ${files[@]}; do
         continue
     fi
 
+    echo "Checking $file"
     debug_code=(`grep -E 'debug\(|var_dump\(|dump\(' ${file}`)
     if [ -n "$debug_code" ]; then
         echo "$file: $debug_code"
