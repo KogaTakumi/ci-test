@@ -22,7 +22,7 @@ jobs:
           echo "point 1"
           for file in ${files[@]}; do
             echo "Checking $file"
-            debug_code=(`grep -E 'debug\(|var_dump\(|dump\(' ${file}`)
+            debug_code=$(`grep -E 'debug\(|var_dump\(|dump\(' ${file}`)
             echo "point 1.1"
             if [ -n "$debug_code" ]; then
               echo "$file: $debug_code"
