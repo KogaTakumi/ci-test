@@ -7,7 +7,7 @@ for file in ${files[@]}; do
     fi
 
     echo "Checking $file"
-    debug_code=(`grep -E 'console.log\(|' ${file}`)
+    debug_code=(`grep -n -E 'console.log\(|' ${file}`)
     if [ -n "$debug_code" ]; then
         echo "$file: $debug_code"
         debug_code_exists=true
