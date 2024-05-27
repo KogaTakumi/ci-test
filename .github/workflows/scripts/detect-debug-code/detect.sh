@@ -20,9 +20,7 @@ for file in ${files[@]}; do
             # echo "[detected] $file:$debug_code"
             # split debug_code into line number and code
             IFS=':' read -r -a debug_code_parts <<< "$debug_code"
-            line_number=${debug_code_parts[0]}
-            code=${debug_code_parts[1]}
-            echo "${file}:${line_number}:0:Debug code found\n```${code}```"
+            echo "${file}:${debug_code_parts[0]}:0:Debug code found\n```${debug_code_parts[1]}```"
         done
     fi
 done
