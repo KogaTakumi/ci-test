@@ -2,7 +2,6 @@ files=$@
 debug_code_exists=false
 
 for file in ${files[@]}; do
-    echo "Checking $file for debug code..."
     case ${file##*.} in
         "js")
             IFS=$'\n' read -r -d '' -a debug_codes < <(grep -n -E 'console.log\(' ${file})
@@ -18,12 +17,11 @@ for file in ${files[@]}; do
     if [ -n "$debug_codes" ]; then
         debug_code_exists=true
         for debug_code in "${debug_codes[@]}"; do
-            echo "[detected] $file:$debug_code"
             # echo "[detected] $file:$debug_code"
             # split debug_code into line number and code
             IFS=':' read -r -a debug_code_parts <<< "$debug_code"
             # echo "${file}:${debug_code_parts[0]}:0:Debug code found\n```${debug_code_parts[1]}```"
-            echo "${file}:${debug_code_parts[0]}:0:Debug code found \`${debug_code_parts[1]}\`"
+            echo "${file}:${debug_code_parts[0]}:0: Debug code found \`${debug_code_parts[1]}\`"
         done
     fi
 done
