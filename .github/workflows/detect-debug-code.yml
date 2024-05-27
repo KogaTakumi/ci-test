@@ -21,8 +21,8 @@ jobs:
           debug_code_exists=false
           for file in ${files[@]}; do
             debug_code=(`grep -E 'debug\(|var_dump\(|dump\(' ${file}`)
-            if $debug_code; then
-              echo "${file}: ${debug_code}"
+            if [ -n "$debug_code" ]; then
+              echo "$file: $debug_code"
               debug_code_exists=true
             fi
           done
