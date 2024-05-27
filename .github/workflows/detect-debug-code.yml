@@ -19,14 +19,20 @@ jobs:
         run: |
           files=(`git diff origin/${{ github.base_ref }} --name-only|tr '\n' ' ' `)
           debug_code_exists=false
+          echo "point 1"
           for file in ${files[@]}; do
-            debug_code=(`grep -E 'debug\(|var_dump\(|dump\(' ${file}`)
+            echo "Checking $file"
+            debug_code=$(`grep -E 'debug\(|var_dump\(|dump\(' ${file}`)
+            echo "point 1.1"
             if [ -n "$debug_code" ]; then
               echo "$file: $debug_code"
               debug_code_exists=true
             fi
+            echo "point 1.2"
           done
+          echo "point 2"
           if $debug_code_exists; then
             echo "Debug code exists in the diff. Please remove it."
             exit 1
           fi
+          echo "point 3"
