@@ -1,9 +1,5 @@
 name: detect-debug-code
-on:
-  pull_request:
-    paths:
-      - '**.php'
-      - '**.js'
+on: pull_request
 jobs:
   detect_debug_code:
     runs-on: ubuntu-latest
