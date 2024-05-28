@@ -17,11 +17,12 @@ for file in ${files[@]}; do
     if [ -n "$debug_codes" ]; then
         debug_code_exists=true
         for debug_code in "${debug_codes[@]}"; do
-            # echo "[detected] $file:$debug_code"
-            # split debug_code into line number and code
             IFS=':' read -r -a debug_code_parts <<< "$debug_code"
-            # echo "${file}:${debug_code_parts[0]}:0:Debug code found\n```${debug_code_parts[1]}```"
-            echo "${file}:${debug_code_parts[0]}:0: Debug code found \`${debug_code_parts[1]}\`"
+            echo "::error:: Debug code found in ${file}:${debug_code_parts[0]}: \`${debug_code_parts[1]}\`"
+            # For reviewdog
+            # In github actions, reviewdog is used to comment on PRs
+            # reviewdog -efm="%f:%l:%c: %m" -name="detect-debug-code" -reporter=github-pr-review -level=error
+            # echo "${file}:${debug_code_parts[0]}:0: Debug code found \`${debug_code_parts[1]}\`"
         done
     fi
 done
