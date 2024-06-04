@@ -2,7 +2,7 @@ files=$@
 debug_code_exists=false
 
 for file in ${files[@]}; do
-    if [ -e file ]; then
+    if [ -e ${file} ]; then
         case ${file##*.} in
             "js")
                 IFS=$'\n' read -r -d '' -a debug_codes < <(grep -n -E 'console.log\(' ${file})
